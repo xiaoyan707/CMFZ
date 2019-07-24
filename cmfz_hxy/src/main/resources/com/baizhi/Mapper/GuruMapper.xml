@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.GuruDao">
+    <insert id="insert" parameterType="Guru">
+        insert into c_guru value(#{id},#{name},#{profile},#{status},#{sex})
+    </insert>
+    <select id="selectAll"  resultType="Guru">
+        select guru_id id,name,profile,status,sex from c_guru limit #{begin},#{rows}
+    </select>
+    <delete id="delete">
+        delete from c_guru where guru_id=#{id}
+    </delete>
+    <update id="update">
+        update c_guru set status=#{status},sex=#{sex},name=#{name} where guru_id=#{id}
+    </update>
+    <select id="selectRecords" resultType="java.lang.Integer">
+        select count(*) from c_guru
+    </select>
+    <update id="updateImg">
+        update c_guru set profile=#{profile} where guru_id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <insert id="insert" parameterType="User">
+        insert into c_user(user_id,phone,password,salt,dharmaName,province,city,gender,personal_sign,status,regist_time) value(#{id},#{phone},#{password},#{salt},#{dharmaName},#{province},#{city},#{gender},#{personalSign},#{status},#{registTime})
+    </insert>
+    <select id="selectAll"  resultType="User">
+        select user_id id,phone,password,salt,dharmaName,province,city,gender,personal_sign personalSign,profile,status,regist_time registTime from c_user limit #{begin},#{rows}
+    </select>
+    <select id="selectOne"  resultType="User">
+        select user_id id,phone,password,salt,dharmaName,province,city,gender,personal_sign personalSign,profile,status,regist_time registTime from c_user where phone=#{phone}
+    </select>
+    <update id="update">
+        update c_user set status=#{status} where user_id=#{id}
+    </update>
+    <!--<update id="update">
+        update c_user set phone=#{phone},password=#{password},dhatmaName=#{dhatmaName},province=#{province},
+        city=#{city},gender=#{gender},personal_sign=#{personalSign},status=#{status}
+        where user_id=#{id}
+    </update>-->
+    <select id="selectRecords" resultType="java.lang.Integer">
+        select count(*) from c_user
+    </select>
+    <update id="updateImg">
+        update c_user set profile=#{profile} where user_id = #{id}
+    </update>
+    <select id="selectAllExportUser"  resultType="User">
+        select user_id id,phone,password,dharmaName,province,city,gender,personal_sign personalSign,profile,status,regist_time registTime from c_user
+    </select>
+    <select id="queryByMonth" resultType="com.baizhi.entity.Month">
+        select count(*) count, left(regist_time,7) month from c_user GROUP BY left(regist_time,7)
+    </select>
+    <select id="queryBySex" resultType="User">
+        select count(*) count, province,gender from c_user where gender=#{gender} GROUP BY province;
+    </select>
+
+</mapper>
